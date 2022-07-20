@@ -1,0 +1,84 @@
+//1a. return countries in asia region
+let xhr=new XMLHttpRequest();
+xhr.open('GET',"https://restcountries.com/v2/all");
+xhr.onload=function(){
+    if(xhr.status >=200 && xhr.status <300){
+       let data=JSON.parse(this.response);
+       let countries=data.filter((country)=>{
+        if(country.region === "Asia"){
+            return country.name;
+        }
+       }
+       );
+       console.log(countries);
+    }
+}
+xhr.send();
+
+//b.return countries with population < 2 lakh
+let xhr=new XMLHttpRequest();
+xhr.open('GET',"https://restcountries.com/v2/all");
+xhr.onload=function(){
+    if(xhr.status >=200 && xhr.status <300){
+       let data=JSON.parse(this.response);
+       let countries=data.filter((country)=>{
+        if(country.population < 200000){
+            return data;
+        }
+       }
+       );
+       console.log(countries);
+    }
+}
+xhr.send();
+
+
+//c. return country,name and flag using forEach function
+let xhr=new XMLHttpRequest();
+xhr.open('GET',"https://restcountries.com/v2/all");
+xhr.onload=function(){
+    if(xhr.status >=200 && xhr.status <300){
+       let data=JSON.parse(this.response);
+       data.forEach((country)=>{
+         console.log(`
+          Name: ${country.name}
+          Region: ${country.capital}
+          Flag: ${country.flag}
+         `)
+       })
+    }
+}
+xhr.send();
+
+//d. return total population of all countries
+let xhr=new XMLHttpRequest();
+xhr.open('GET',"https://restcountries.com/v2/all");
+xhr.onload=function(){
+    if(xhr.status >=200 && xhr.status <300){
+       let data=JSON.parse(this.response);
+       let totalpopulation=data.reduce((previous,current)=>{
+           return previous + current.population;
+       },0);
+       console.log(`Total population: ${totalpopulation}`);  
+    }
+    
+}
+xhr.send(); 
+
+//output: 
+//Total population: 7759438109
+
+//e.print countries with american dollars as currency
+let xhr=new XMLHttpRequest();
+xhr.open('GET',"https://restcountries.com/v2/all");
+xhr.onload=function(){
+    if(xhr.status >=200 && xhr.status <300){
+       let data=JSON.parse(this.response);
+       for(let i=0; i<data.length; i++){
+       if(data[i]["currencies"][0].code === "USD"){
+           console.log(data[i]["name"]);
+       }
+    }
+  }
+}
+xhr.send();
